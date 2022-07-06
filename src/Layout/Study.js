@@ -27,7 +27,7 @@ export default function Study({cards, decks}) {
         <Switch>
         <Route>
 
-        <LoadCards cards={cards} decks={decks}  />
+        <LoadCards cards={cards} decks={decks} params={params}  />
         </Route>
 
 

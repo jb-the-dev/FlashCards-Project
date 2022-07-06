@@ -74,28 +74,28 @@ function LoadDecks({decks, setDecks, cards, setCards}) {
 
 
     const deckList = decks.map((deck) => (
-      <div key={deck.id} class="card w-50">
-      <div class="card-body">
-        <div class="row" style={{display: "flex", justifyContent: "space-between", margin: "0 10px"}}>
-          <h5 class="card-title"> {deck.name} </h5>
+      <div key={deck.id} className="card w-50">
+      <div className="card-body">
+        <div className="row" style={{display: "flex", justifyContent: "space-between", margin: "0 10px"}}>
+          <h5 className="card-title"> {deck.name} </h5>
           <p> {cards.filter((card) => card.deckId === deck.id).length} cards</p> 
         </div>
-        <p class="card-text">
+        <p className="card-text">
           {deck.description}
         </p>
-        <div class="row" style={{display: "flex", justifyContent: "space-between", margin: "0 10px"}}>
-          <div class="row" style={{display: "flex", margin: "0 5px"}}>
-        <Link to={`/decks/${deck.id}`} class="btn btn-secondary">
+        <div className="row" style={{display: "flex", justifyContent: "space-between", margin: "0 10px"}}>
+          <div className="row" style={{display: "flex", margin: "0 5px"}}>
+        <Link to={`/decks/${deck.id}`} className="btn btn-secondary">
           View
         </Link>
-        <Link to={`/decks/${deck.id}/study`} class="btn btn-primary">
+        <Link to={`/decks/${deck.id}/study`} className="btn btn-primary">
           Study
         </Link>
         </div>
         <div>
         <button
         type="delete"
-        class="btn btn-danger"
+        className="btn btn-danger"
         onClick={() => window.confirm("Delete this deck? /n /n You will not be able to recover it.")}
         >
         Delete
@@ -122,4 +122,3 @@ function LoadDecks({decks, setDecks, cards, setCards}) {
 }
 
 export default LoadDecks;
-
