@@ -1,25 +1,30 @@
 import React, {useState} from "react";
-import { useHistory, Link, useParams, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import LoadDecks from "./LoadDecks";
+import Deck from "./Deck";
 
 function Layout() {
 
-const params = useParams()
-const history = useHistory()
-
-
+  
+  const [decks, setDecks] = useState([])
+  const [cards, setCards] = useState([])
+  
 
   return (
     <React.Fragment>
       <Header />
       <div className="container">
-      <button type="button" class="btn btn-secondary">Create Deck</button>
+      <button type="button" className="btn btn-secondary">Create Deck</button>
         <Switch> 
         <Route exact path="/">
-            <LoadDecks />
+            <LoadDecks decks={decks} cards={cards} setDecks={setDecks} setCards={setCards} />
 
+        </Route>
+        <Route path="/decks/:deckId">
+
+          <Deck decks={decks} cards={cards} setDecks={setDecks} setCards={setCards}/>
         </Route>
 
         <Route> 

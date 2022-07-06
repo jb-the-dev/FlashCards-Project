@@ -1,18 +1,17 @@
-import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom"
-
-function LoadDecks() {
+import React, {useEffect} from "react";
+import {Link,} from "react-router-dom"
 
 
+function LoadDecks({decks, setDecks, cards, setCards}) {
 
-    const [decks, setDecks] = useState([])
-    
+
+
 
     useEffect(() => {
 
         const abortController = new AbortController();
 
-        async function getCards(){
+        async function getDecks(){
             try {
             const response = await fetch("http://localhost:8080/decks", 
            {signal: abortController.signal});
@@ -29,7 +28,7 @@ function LoadDecks() {
             
         }
         
-        getCards()
+        getDecks()
      
         return () => {
           abortController.abort()
@@ -37,7 +36,41 @@ function LoadDecks() {
         }
 
         
-    }, [])
+    }, [setDecks])
+
+
+    useEffect(() => {
+
+      const abortController = new AbortController();
+
+      async function getCards(){
+          try {
+          const response = await fetch("http://localhost:8080/cards", 
+         {signal: abortController.signal});
+         const data = await response.json();
+          setCards(data)         
+
+          } catch (error) {
+            if(error.name === "AbortError"){
+              console.log(error.name)
+          }else {
+            throw error
+          }
+          }
+          
+      }
+      
+      getCards()
+   
+      return () => {
+        abortController.abort()
+        
+      }
+
+      
+  }, [setCards])
+
+   
 
 
     const deckList = decks.map((deck) => (
@@ -45,7 +78,7 @@ function LoadDecks() {
       <div class="card-body">
         <div class="row" style={{display: "flex", justifyContent: "space-between", margin: "0 10px"}}>
           <h5 class="card-title"> {deck.name} </h5>
-          <p> AMOUNT_OF cards</p> 
+          <p> {cards.filter((card) => card.deckId === deck.id).length} cards</p> 
         </div>
         <p class="card-text">
           {deck.description}
@@ -55,14 +88,19 @@ function LoadDecks() {
         <Link to={`/decks/${deck.id}`} class="btn btn-secondary">
           View
         </Link>
-        <Link to={`/decks/${deck.id}`} class="btn btn-primary">
+        <Link to={`/decks/${deck.id}/study`} class="btn btn-primary">
           Study
         </Link>
         </div>
         <div>
-        <Link to={`/decks/${deck.id}`} class="btn btn-danger">
-          Delete
-        </Link>
+        <button
+        type="delete"
+        class="btn btn-danger"
+        onClick={() => window.confirm("Delete this deck? /n /n You will not be able to recover it.")}
+        >
+        Delete
+
+        </button>
         </div>
         </div>
       </div>
@@ -76,6 +114,12 @@ function LoadDecks() {
 
 
   return deckList
+   
+    
+
+
+
 }
 
 export default LoadDecks;
+
