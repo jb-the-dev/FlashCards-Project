@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function LoadDecks({ decks, setDecks, cards, setCards }) {
+  
   useEffect(() => {
     const abortController = new AbortController();
 
@@ -91,7 +92,7 @@ function LoadDecks({ decks, setDecks, cards, setCards }) {
               className="btn btn-danger"
               onClick={() =>
                 window.confirm(
-                  "Delete this deck? /n /n You will not be able to recover it."
+                  "Delete this deck? \n \n You will not be able to recover it."
                 )
               }
             >

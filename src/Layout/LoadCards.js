@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { readDeck } from "../utils/api";
 import { useHistory } from "react-router-dom";
 
-export default function LoadCards({ decks, params }) {
+export default function LoadCards({ decks, params, deck, setDeck }) {
   const [cardIndex, setCardIndex] = useState(0);
-  const [deck, setDeck] = useState({ cards: [] });
+  
   const [cardSide, setCardSide] = useState(true);
 
   const history = useHistory();
@@ -62,18 +62,18 @@ export default function LoadCards({ decks, params }) {
             Card {cardIndex + 1} of {deck.cards.length}{" "}
           </p>
         </div>
-        <p class="card-text">{cardSide ? card.front : card.back}</p>
+        <p className="card-text">{cardSide ? card.front : card.back}</p>
         <div
-          class="row"
+          className="row"
           style={{
             display: "flex",
             justifyContent: "space-between",
             margin: "0 10px",
           }}
         >
-          <div class="row" style={{ display: "flex", margin: "0 5px" }}>
+          <div className="row" style={{ display: "flex", margin: "0 5px" }}>
             <button
-              class="btn btn-secondary"
+              className="btn btn-secondary"
               onClick={() => setCardSide(!cardSide)}
             >
               Flip

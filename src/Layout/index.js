@@ -3,7 +3,7 @@ import { Switch, Route, Link } from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import LoadDecks from "./LoadDecks";
-import Deck from "./Deck";
+import StudyDeck from "./StudyDeck";
 import CreateDeck from "./CreateDeck";
 
 function Layout() {
@@ -31,7 +31,7 @@ function Layout() {
             <CreateDeck />
           </Route>
           <Route path="/decks/:deckId">
-            <Deck
+            <StudyDeck
               decks={decks}
               cards={cards}
               setDecks={setDecks}

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Switch, useParams } from "react-router-dom";
 import LoadCards from "./LoadCards";
 
-export default function Study({ cards, decks }) {
+export default function Study({ cards, decks, deck, setDeck }) {
   const params = useParams();
 
   console.log(params);
@@ -10,10 +10,10 @@ export default function Study({ cards, decks }) {
 
   return (
     <React.Fragment>
-      <h4> Study: {`${decks[params.deckId - 1].name}`} </h4>
+      <h4> Study: {`${decks[params.deckId].name}`} </h4>
       <Switch>
         <Route>
-          <LoadCards cards={cards} decks={decks} params={params} />
+          <LoadCards cards={cards} decks={decks} params={params} deck={deck} setDeck={setDeck} />
         </Route>
       </Switch>
     </React.Fragment>
