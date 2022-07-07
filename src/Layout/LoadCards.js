@@ -1,37 +1,50 @@
-import React, {useEffect, useState} from "react";
-import {Link,} from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { readDeck } from "../utils/api";
+import { useHistory } from "react-router-dom";
 
+export default function LoadCards({ decks, params }) {
+  const [cardIndex, setCardIndex] = useState(0);
+  const [deck, setDeck] = useState({ cards: [] });
+  const [cardSide, setCardSide] = useState(true);
 
+  const history = useHistory();
 
-
-export default function LoadCards({ cards, decks, params }) {
-const [card, setCard] = useState(cards[1])
-const [deck, setDeck] =useState({})
-useEffect(()=>{
-
+  useEffect(() => {
     const abortController = new AbortController();
-    async function fetchDeck(){
-        try{
-        let fetchedDeck = await readDeck(params.deckId, )
-        setDeck(fetchedDeck)
-        } catch (error) {
-            if(error.name === "AbortError"){
-              console.log(error.name)
-          }else {
-            throw error
-          }
-          }
-    }
-    fetchDeck()
-    return () => {
-        abortController.abort()
-        
+    async function fetchDeck() {
+      try {
+        let fetchedDeck = await readDeck(params.deckId);
+        setDeck(fetchedDeck);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log(error.name);
+        } else {
+          throw error;
+        }
       }
-},[])
-console.log("deck",deck.cards)
+    }
+    fetchDeck();
+    return () => {
+      abortController.abort();
+    };
+  }, [params.deckId]);
+  console.log("deck", deck.cards);
 
+  const card = deck.cards[cardIndex] || {};
 
+  const handleNext = () => {
+    if (cardIndex < deck.cards.length - 1) {
+      setCardIndex(cardIndex + 1);
+    } else if (cardIndex === deck.cards.length - 1) {
+      const restart = window.confirm(
+        "Restart cards? \n \n Click 'cancel' to return to the home page."
+      );
+
+      restart ? setCardIndex(0) : history.push("/");
+    }
+
+    setCardSide(!cardSide);
+  };
 
   const pageCard = (
     <div key={card.id} class="card w-50">
@@ -44,10 +57,12 @@ console.log("deck",deck.cards)
             margin: "0 10px",
           }}
         >
-         
-          <p>  cards</p>
+          <p>
+            {" "}
+            Card {cardIndex + 1} of {deck.cards.length}{" "}
+          </p>
         </div>
-        <p class="card-text">{card.front}</p>
+        <p class="card-text">{cardSide ? card.front : card.back}</p>
         <div
           class="row"
           style={{
@@ -57,12 +72,17 @@ console.log("deck",deck.cards)
           }}
         >
           <div class="row" style={{ display: "flex", margin: "0 5px" }}>
-            <button class="btn btn-secondary">
+            <button
+              class="btn btn-secondary"
+              onClick={() => setCardSide(!cardSide)}
+            >
               Flip
             </button>
-            <button onClick={()=>setCard.index+=1}to="" class="btn btn-primary">
-              Next
-            </button>
+            {!cardSide && (
+              <button onClick={handleNext} to="" class="btn btn-primary">
+                Next
+              </button>
+            )}
           </div>
         </div>
       </div>
