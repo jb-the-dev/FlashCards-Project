@@ -27,7 +27,7 @@ export default function LoadCards({ decks, params, deck, setDeck }) {
     return () => {
       abortController.abort();
     };
-  }, [params.deckId]);
+  }, [params.deckId, setDeck]);
   console.log("deck", deck.cards);
 
   const card = deck.cards[cardIndex] || {};

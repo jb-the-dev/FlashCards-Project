@@ -24,7 +24,7 @@ export default function ViewDeck({ deck, setDeck }) {
     return () => {
       abortController.abort();
     };
-  }, [params.deckId]); // add setDeck to dependencies
+  }, [params.deckId, setDeck]); // add setDeck to dependencies
 
   const handleDeleteDeck = () => {
     const deleteBox = window.confirm(
@@ -37,7 +37,7 @@ export default function ViewDeck({ deck, setDeck }) {
         try {
           let newDeckList = await deleteDeck(params.deckId);
           history.push("/");
-          // console.log(newDeckList);
+          console.log(newDeckList);
         } catch (error) {
           if (error.name === "AbortError") {
             console.log(error.name);

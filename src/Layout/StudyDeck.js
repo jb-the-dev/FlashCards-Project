@@ -50,7 +50,12 @@ export default function Deck({ decks, setDecks, cards }) {
           />
         </Route>
         <Route exact path={`${path}/edit`}>
-          <EditDeck deck={deck} setDeck={setDeck} />
+          <EditDeck
+            deck={deck}
+            setDeck={setDeck}
+            decks={decks}
+            setDecks={setDecks}
+          />
         </Route>
         <Route path={`${path}/cards/new`}>
           <CreateCard />

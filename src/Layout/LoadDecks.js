@@ -54,6 +54,7 @@ function LoadDecks({ decks, setDecks, cards, setCards }) {
     };
   }, [setCards]);
 
+// Homepage HTML
   const deckList = decks.map((deck) => (
     <div key={deck.id} className="card w-50">
       <div className="card-body">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
-export default function EditDeck({ deck, setDeck }) {
+export default function EditDeck({ deck, setDeck, decks, setDecks }) {
   const initialFormState = {
     name: deck.name,
     description: deck.description,
@@ -17,10 +17,10 @@ export default function EditDeck({ deck, setDeck }) {
           <Link to="/">Home</Link>
         </li>
         <li className="breadcrumb-item">
-          <Link to={`${url}`}> {deck.name} </Link>
+          <Link to={`${url}`}> {formData.name} </Link>
         </li>
         <li className="breadcrumb-item active" aria-current="page">
-          Data
+          Edit Deck
         </li>
       </ol>
     </nav>
@@ -28,8 +28,28 @@ export default function EditDeck({ deck, setDeck }) {
 
   const handleEditDeck = (event) => {
     event.preventDefault();
-    console.log("deck edited.", event.target);
+    setDeck({
+      ...deck,
+      name: formData.name,
+      description: formData.description,
+    });
+
+    const decksCopy = decks;
+    const filtered = decksCopy.filter((deckCopy) => deckCopy.id !== deck.id);
+
+    console.log("filter", filtered);
+
+    setDecks([
+      ...filtered,
+      { name: formData.name, description: formData.description, id: deck.id },
+    ]);
+    console.log("name", formData.name, "desc", formData.description);
   };
+
+  // go through decks array
+  // extract old deck at id
+  // replace old deck with new deck
+  // insert new deck into decks array
 
   const handleFormChange = (event) => {
     event.preventDefault();
@@ -74,8 +94,14 @@ export default function EditDeck({ deck, setDeck }) {
           required
         />
       </div>
-      <button className="btn btn-secondary">Cancel</button>
-      <button type="submit" className="btn btn-primary" style={{margin: "0 10px"}}>
+      <Link to={`/decks/${deck.id}`} className="btn btn-secondary">
+        Cancel
+      </Link>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        style={{ margin: "0 10px" }}
+      >
         Submit
       </button>
     </form>
