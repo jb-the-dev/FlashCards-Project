@@ -81,7 +81,7 @@ export default function ViewDeck({deck, setDeck}) {
     </div>
   ));
 
-  const selectedCard = (
+  const selectedDeck = (
     <div className="container column">
       <div className="column">
         <h3> {deck.name} </h3>
@@ -148,7 +148,7 @@ export default function ViewDeck({deck, setDeck}) {
 
         </Switch>
       {breadcrumb}
-      {selectedCard}
+      {selectedDeck}
       <h2>Cards</h2>
       <ul>{cardList}</ul>
     </React.Fragment>
