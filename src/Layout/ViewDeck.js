@@ -63,7 +63,7 @@ export default function ViewDeck({deck, setDeck}) {
 
 
   const cardList = deck.cards.map((card) => (
-    <div className="card container">
+    <div key={card.id} className="card container">
         <li className="row">
       <div className="col-6">
         <p> {card.front} </p>
