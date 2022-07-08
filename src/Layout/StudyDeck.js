@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useRouteMatch, Route, Switch, Link } from "react-router-dom";
 import LoadCards from "./LoadCards";
 import ViewDeck from "./ViewDeck";
@@ -28,17 +28,19 @@ export default function Deck({ decks, setDecks, cards, setCards }) {
 
   return (
     <React.Fragment>
-      
       <Switch>
         <Route exact path={`${path}`}>
-
-        <ViewDeck decks={decks} deck={deck} setDeck={setDeck} setDecks={setDecks}/>
-
+          <ViewDeck
+            decks={decks}
+            deck={deck}
+            setDeck={setDeck}
+            setDecks={setDecks}
+          />
         </Route>
 
         <Route path={`${path}/study`}>
-        {breadcrumb}
-        <h4> Study: {`${decks[params.deckId].name}`} </h4>
+          {breadcrumb}
+          <h4> Study: {`${decks[params.deckId].name}`} </h4>
           <LoadCards
             cards={cards}
             decks={decks}
@@ -48,18 +50,14 @@ export default function Deck({ decks, setDecks, cards, setCards }) {
           />
         </Route>
         <Route exact path={`${path}/edit`}>
-                <EditDeck />
-
-            </Route>
-            <Route path={`${path}/cards/new`}>
-
-                <CreateCard />
-
-            </Route>
-            <Route path={`${path}/cards/:cardId/edit`} >
-
-                <EditCard />
-            </Route>
+          <EditDeck />
+        </Route>
+        <Route path={`${path}/cards/new`}>
+          <CreateCard />
+        </Route>
+        <Route path={`${path}/cards/:cardId/edit`}>
+          <EditCard />
+        </Route>
       </Switch>
     </React.Fragment>
   );
