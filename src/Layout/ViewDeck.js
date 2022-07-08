@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
-import {
-  Link,
-  useRouteMatch,
-  useHistory
-} from "react-router-dom";
+import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import { deleteDeck, readDeck } from "../utils/api";
-
 
 export default function ViewDeck({ deck, setDeck }) {
   const { url, params } = useRouteMatch();
@@ -71,12 +66,13 @@ export default function ViewDeck({ deck, setDeck }) {
             className="row"
             style={{ display: "flex", justifyContent: "flex-end" }}
           >
-            <Link to="" className="btn btn-secondary">
+            <Link
+              to={`${url}/cards/${card.id}/edit`}
+              className="btn btn-secondary"
+            >
               Edit
             </Link>
-            <Link to="" className="btn btn-danger">
-              Delete
-            </Link>
+            <button className="btn btn-danger">Delete</button>
           </div>
         </div>
       </li>
