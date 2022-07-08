@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import { useRouteMatch, Route, Switch, Link } from "react-router-dom";
 import LoadCards from "./LoadCards";
 import ViewDeck from "./ViewDeck";
+import CreateCard from "./CreateCard";
+import EditCard from "./EditCard";
+import EditDeck from "./EditDeck";
 
 export default function Deck({ decks, setDecks, cards, setCards }) {
   const { params, path, url } = useRouteMatch();
@@ -44,6 +47,19 @@ export default function Deck({ decks, setDecks, cards, setCards }) {
             setDeck={setDeck}
           />
         </Route>
+        <Route exact path={`${path}/edit`}>
+                <EditDeck />
+
+            </Route>
+            <Route path={`${path}/cards/new`}>
+
+                <CreateCard />
+
+            </Route>
+            <Route path={`${path}/cards/:cardId/edit`} >
+
+                <EditCard />
+            </Route>
       </Switch>
     </React.Fragment>
   );
