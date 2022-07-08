@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useRouteMatch, Route, Switch, Link } from "react-router-dom";
-import Study from "./Study";
+import LoadCards from "./LoadCards";
 import ViewDeck from "./ViewDeck";
 
 export default function Deck({ decks, setDecks, cards, setCards }) {
@@ -35,7 +35,14 @@ export default function Deck({ decks, setDecks, cards, setCards }) {
 
         <Route path={`${path}/study`}>
         {breadcrumb}
-          <Study cards={cards} decks={decks} deck={deck} setDeck={setDeck} />
+        <h4> Study: {`${decks[params.deckId].name}`} </h4>
+          <LoadCards
+            cards={cards}
+            decks={decks}
+            params={params}
+            deck={deck}
+            setDeck={setDeck}
+          />
         </Route>
       </Switch>
     </React.Fragment>
