@@ -6,7 +6,7 @@ import CreateCard from "./CreateCard";
 import EditCard from "./EditCard";
 import EditDeck from "./EditDeck";
 
-export default function Deck({ decks, setDecks, cards, setCards }) {
+export default function Deck({ decks, setDecks, cards }) {
   const { params, path, url } = useRouteMatch();
   const [deck, setDeck] = useState({ cards: [] });
 
@@ -40,7 +40,7 @@ export default function Deck({ decks, setDecks, cards, setCards }) {
 
         <Route path={`${path}/study`}>
           {breadcrumb}
-          <h4> Study: {`${decks[params.deckId].name}`} </h4>
+          <h4> Study: {`${deck.name}`} </h4>
           <LoadCards
             cards={cards}
             decks={decks}
@@ -50,7 +50,7 @@ export default function Deck({ decks, setDecks, cards, setCards }) {
           />
         </Route>
         <Route exact path={`${path}/edit`}>
-          <EditDeck />
+          <EditDeck deck={deck} setDeck={setDeck} />
         </Route>
         <Route path={`${path}/cards/new`}>
           <CreateCard />

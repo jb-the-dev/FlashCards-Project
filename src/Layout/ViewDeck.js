@@ -30,13 +30,14 @@ export default function ViewDeck({ deck, setDeck }) {
     const deleteBox = window.confirm(
       "Delete deck? \n \n You will not be able to recover it."
     );
+    // if user hits "ok" on popup, code below deletes deck
     if (deleteBox) {
       console.log("please Delete deck");
       async function deleteDeckApiCall() {
         try {
           let newDeckList = await deleteDeck(params.deckId);
           history.push("/");
-          console.log(newDeckList);
+          // console.log(newDeckList);
         } catch (error) {
           if (error.name === "AbortError") {
             console.log(error.name);
